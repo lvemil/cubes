@@ -1,5 +1,6 @@
 from Value import Value
 from Cube import Cube
+import math
 
 class Table:
 
@@ -16,10 +17,18 @@ class Table:
     def cols(self):
         return self.__cols
     
+    def ValueHeigth(self, value: int, cols_by_digit = 1):
+        vs = str(value)
+        max_digit = max([int(d) for d in vs])
+        return math.ceil(max_digit / cols_by_digit)
+                
     def SetValue(self, value: int, cols_by_digit = 1):
+        initial_row =  int(self.rows / 2 - self.ValueHeigth(value, cols_by_digit) / 2)
+        
         vs = str(value)
         p = len(vs)                
         col = 0
+                       
         for d in reversed(vs):                  
             if p == len(vs):
                 col = (p * cols_by_digit - cols_by_digit + 1)
@@ -29,7 +38,7 @@ class Table:
                 else:
                     col -= cols_by_digit
 
-            self.SetDigit(int(d), p, len(vs), cols_by_digit, row = 1, col = col)
+            self.SetDigit(int(d), p, len(vs), cols_by_digit, row = initial_row, col = col)
             p -= 1
         
     def SetDigit(self, d: int, p: int):
