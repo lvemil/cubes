@@ -1,3 +1,4 @@
+''' A cube to form digits '''
 class Cube:
 
     def __init__(self, color = "", row = 1, col = 1):
