@@ -2,6 +2,7 @@ from Value import Value
 from Cube import Cube
 import math
 
+'''A table to put cubes'''
 class Table:
 
     def __init__(self, rows = 10, cols = 20):
