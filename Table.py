@@ -1,8 +1,9 @@
 from Value import Value
 from Cube import Cube
 import math
+import random
 
-'''A table to put cubes'''
+'''A table to put'''
 class Table:
 
     def __init__(self, rows = 10, cols = 20):
@@ -45,8 +46,8 @@ class Table:
             self.SetDigit(d, p, len(vs), cols_by_digit, row = initial_row, col = col)
             p -= 1
         
-    def SetDigit(self, d: int, p: int):
-        return
+    def SetDigit(self, d: int, p: int, l: int, cols: int, row: int, col: int):
+        pass
     
     def SetCube(self, cube: Cube, row = 1, col = 1):
         self.__cubes[row][col] = cube
@@ -63,3 +64,19 @@ class Table:
             for c in range(self.__cols):
                 self.DrawCube(self.__cubes[r][c])
             print("")
+
+    def DrawCube(self, cubes):
+        pass
+
+    def RandomSet(self, color: str, count: int):
+        for i in range(count):
+            r = random.choice(range(self.rows))
+            c = random.choice(range(self.cols))
+            cube = Cube(color, r, c)
+            self.SetCube(cube, r, c)
+        
+    def CountCubes(self):
+        count = 0
+        for r in self.__cubes:
+            count += sum(1 for x in r if x != None)
+        return count
