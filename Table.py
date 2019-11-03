@@ -70,13 +70,25 @@ class Table:
 
     def RandomSet(self, color: str, count: int):
         for i in range(count):
-            r = random.choice(range(self.rows))
-            c = random.choice(range(self.cols))
+            not_free = True
+            while not_free:
+                r = random.choice(range(self.rows))
+                c = random.choice(range(self.cols))
+                not_free = self.IsFree(r, c) == False
             cube = Cube(color, r, c)
             self.SetCube(cube, r, c)
-        
-    def CountCubes(self):
-        count = 0
-        for r in self.__cubes:
-            count += sum(1 for x in r if x != None)
+    
+    def IsFree(self, row: int, col: int):
+        return self.__cubes[row][col] == None
+
+    def CountCubes(self, color: str = "ALL"):
+        if color == "ALL":
+            count = sum([sum(1 for x in r if x != None) for r in self.__cubes])
+        else:
+            count = sum([sum(1 for x in r if (x != None and x.color == color)) for r in self.__cubes])
         return count
+
+    def CountCubesByColors(self):
+        colors = ["R","A","V"]
+        counts = {c: self.CountCubes(c) for c in colors}
+        return counts
